@@ -12,7 +12,6 @@ import AddDiffTaskView from "./components/navigation/AddDiffTaskView";
 const AppNavigator = () => {
   const [selectedScreen, setSelectedScreen] = useState("Home");
   const [isTaskModelShow, setIsTaskModelShow] = useState(false);
-  const [isNotificationShow, setIsNotificationShow] = useState(false);
 
   const renderScreen = () => {
     switch (selectedScreen) {
@@ -58,11 +57,15 @@ const AppNavigator = () => {
               <Text style={styles.titleText}>{selectedScreen}</Text>
             </View>
 
-            <TouchableOpacity
-              onPress={() => setSelectedScreen("Notifications")}
-            >
-              <Icon name="notifications" style={styles.topIcon}></Icon>
-            </TouchableOpacity>
+            {selectedScreen === "Home" ? (
+              <TouchableOpacity
+                onPress={() => setSelectedScreen("Notifications")}
+              >
+                <Icon name="notifications" style={styles.topIcon}></Icon>
+              </TouchableOpacity>
+            ) : (
+              <View style={styles.blankIcon}></View>
+            )}
           </View>
         </View>
 
@@ -102,16 +105,6 @@ const AppNavigator = () => {
           <AddDiffTaskView setIsTaskModelShow={setIsTaskModelShow} />
         </Modal>
       }
-      {/* {
-        <Modal
-          transparent={true}
-          visible={isNotificationShow}
-          animationType="fade"
-          onRequestClose={() => setIsNotificationShow(false)}
-        >
-          <NotificationScreen setIsNotificationShow={setIsNotificationShow} />
-        </Modal>
-      } */}
     </View>
   );
 };
@@ -163,6 +156,11 @@ const styles = StyleSheet.create({
   topIcon: {
     color: "#1891ed",
     fontSize: 26,
+  },
+
+  blankIcon: {
+    width: 28,
+    height: 28,
   },
 
   bottomBar: {
