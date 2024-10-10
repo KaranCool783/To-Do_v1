@@ -21,7 +21,7 @@ const AddDiffTaskView = ({ setIsTaskModelShow }) => {
 
       <View style={styles.contentArea}>
         <View style={styles.content}>
-          <Text style={styles.headingText}>Add Task</Text>
+          <Text style={styles.headingText}>New Tasks and Goals</Text>
 
           {taskTypes.map((task, index) => (
             <TouchableOpacity key={index} style={styles.addTaskList}>

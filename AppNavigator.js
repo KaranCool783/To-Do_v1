@@ -12,6 +12,7 @@ import AddDiffTaskView from "./components/navigation/AddDiffTaskView";
 const AppNavigator = () => {
   const [selectedScreen, setSelectedScreen] = useState("Home");
   const [isTaskModelShow, setIsTaskModelShow] = useState(false);
+  const [isNotificationShow, setIsNotificationShow] = useState(false);
 
   const renderScreen = () => {
     switch (selectedScreen) {
@@ -31,6 +32,7 @@ const AppNavigator = () => {
         return <NotificationScreen />;
 
       default:
+        setSelectedScreen("Home");
         return <HomeScreen />;
     }
   };
@@ -42,9 +44,15 @@ const AppNavigator = () => {
       <View style={styles.area}>
         <View style={styles.topArea}>
           <View style={styles.topBar}>
-            <TouchableOpacity onPress={() => setIsTaskModelShow(true)}>
-              <Icon name="bulb" style={styles.topIcon}></Icon>
-            </TouchableOpacity>
+            {selectedScreen === "Home" ? (
+              <TouchableOpacity onPress={() => setIsTaskModelShow(true)}>
+                <Icon name="bulb" style={styles.topIcon}></Icon>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => setSelectedScreen("Home")}>
+                <Icon name="caret-back" style={styles.topIcon}></Icon>
+              </TouchableOpacity>
+            )}
 
             <View>
               <Text style={styles.titleText}>{selectedScreen}</Text>
@@ -94,6 +102,16 @@ const AppNavigator = () => {
           <AddDiffTaskView setIsTaskModelShow={setIsTaskModelShow} />
         </Modal>
       }
+      {/* {
+        <Modal
+          transparent={true}
+          visible={isNotificationShow}
+          animationType="fade"
+          onRequestClose={() => setIsNotificationShow(false)}
+        >
+          <NotificationScreen setIsNotificationShow={setIsNotificationShow} />
+        </Modal>
+      } */}
     </View>
   );
 };
