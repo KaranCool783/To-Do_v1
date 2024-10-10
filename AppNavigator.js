@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
@@ -7,9 +7,11 @@ import AddTask from "./screens/AddTask";
 import RepeatScreen from "./screens/RepeatScreen";
 import GoalsScreen from "./screens/GoalsScreen";
 import NotificationScreen from "./screens/NotificationScreen";
+import AddDiffTaskView from "./components/navigation/AddDiffTaskView";
 
 const AppNavigator = () => {
   const [selectedScreen, setSelectedScreen] = useState("Home");
+  const [isTaskModelShow, setIsTaskModelShow] = useState(false);
 
   const renderScreen = () => {
     switch (selectedScreen) {
@@ -40,7 +42,7 @@ const AppNavigator = () => {
       <View style={styles.area}>
         <View style={styles.topArea}>
           <View style={styles.topBar}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => setIsTaskModelShow(true)}>
               <Icon name="bulb" style={styles.topIcon}></Icon>
             </TouchableOpacity>
 
@@ -81,6 +83,17 @@ const AppNavigator = () => {
           <Icon name="golf-outline" style={styles.bottomIcon}></Icon>
         </TouchableOpacity>
       </View>
+
+      {
+        <Modal
+          transparent={true}
+          visible={isTaskModelShow}
+          animationType="fade"
+          onRequestClose={() => setIsTaskModelShow(false)}
+        >
+          <AddDiffTaskView setIsTaskModelShow={setIsTaskModelShow} />
+        </Modal>
+      }
     </View>
   );
 };
@@ -150,6 +163,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
+    elevation: 5,
   },
 
   bottomIcon: {
