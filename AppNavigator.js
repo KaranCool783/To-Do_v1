@@ -1,8 +1,38 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
+import HomeScreen from "./screens/HomeScreen";
+import AddTask from "./screens/AddTask";
+import RepeatScreen from "./screens/RepeatScreen";
+import GoalsScreen from "./screens/GoalsScreen";
+import NotificationScreen from "./screens/NotificationScreen";
 
 const AppNavigator = () => {
+  const [selectedScreen, setSelectedScreen] = useState("Home");
+
+  const renderScreen = () => {
+    switch (selectedScreen) {
+      case "Home":
+        return <HomeScreen />;
+
+      case "Add Task":
+        return <AddTask />;
+
+      case "Repeating Tasks":
+        return <RepeatScreen />;
+
+      case "Goals":
+        return <GoalsScreen />;
+
+      case "Notifications":
+        return <NotificationScreen />;
+
+      default:
+        return <HomeScreen />;
+    }
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -15,30 +45,39 @@ const AppNavigator = () => {
             </TouchableOpacity>
 
             <View>
-              <Text style={styles.titleText}>Home</Text>
+              <Text style={styles.titleText}>{selectedScreen}</Text>
             </View>
 
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setSelectedScreen("Notifications")}
+            >
               <Icon name="notifications" style={styles.topIcon}></Icon>
             </TouchableOpacity>
           </View>
         </View>
 
-        <View style={styles.mainArea}>
-          <Text>Main Area</Text>
-        </View>
+        <View style={styles.mainArea}>{renderScreen()}</View>
       </View>
 
       <View style={styles.bottomBar}>
-        <TouchableOpacity style={styles.bottomBarIcon}>
+        <TouchableOpacity
+          style={styles.bottomBarIcon}
+          onPress={() => setSelectedScreen("Repeating Tasks")}
+        >
           <Icon name="repeat-outline" style={styles.bottomIcon}></Icon>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.bottomBarIcon}>
+        <TouchableOpacity
+          style={styles.bottomBarIcon}
+          onPress={() => setSelectedScreen("Add Task")}
+        >
           <Icon name="add-outline" style={styles.bottomIcon}></Icon>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.bottomBarIcon}>
+        <TouchableOpacity
+          style={styles.bottomBarIcon}
+          onPress={() => setSelectedScreen("Goals")}
+        >
           <Icon name="golf-outline" style={styles.bottomIcon}></Icon>
         </TouchableOpacity>
       </View>
