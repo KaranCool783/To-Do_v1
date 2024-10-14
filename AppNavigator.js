@@ -13,10 +13,116 @@ const AppNavigator = () => {
   const [selectedScreen, setSelectedScreen] = useState("Home");
   const [isTaskModelShow, setIsTaskModelShow] = useState(false);
 
+  const [tasksList, setTasksList] = useState([
+    {
+      id: 1,
+      title: "Daily Excercise ksdhk skdhf kjshfd khks dskhf kjfdh ",
+      status: "Pending",
+      repeat: ["Daily"],
+      subTask: true,
+      attempts: 3,
+      isGoal: false,
+    },
+    {
+      id: 2,
+      title: "Task no. 2",
+      status: "Completed",
+      repeat: ["weekly"],
+      subTask: false,
+      attempts: 1,
+      isGoal: false,
+    },
+    {
+      id: 3,
+      title: "Task no. 2",
+      status: "Postponed",
+      repeat: ["weekly"],
+      subTask: false,
+      attempts: 1,
+      isGoal: false,
+    },
+    {
+      id: 4,
+      title: "Task no. 2",
+      status: "Late",
+      repeat: ["weekly"],
+      subTask: false,
+      attempts: 1,
+      isGoal: false,
+    },
+    {
+      id: 5,
+      title: "Task no. 2",
+      status: "Pending",
+      repeat: ["weekly"],
+      subTask: false,
+      attempts: 1,
+      isGoal: false,
+    },
+    {
+      id: 6,
+      title: "Task no. 2",
+      status: "Canceled",
+      repeat: ["weekly"],
+      subTask: false,
+      attempts: 1,
+      isGoal: false,
+    },
+    {
+      id: 7,
+      title: "Task no. 2",
+      status: "Pending",
+      repeat: ["weekly"],
+      subTask: false,
+      attempts: 1,
+      isGoal: false,
+    },
+  ]);
+  const [repeatTaskInfo, setRepeatTaskInfo] = useState([
+    {
+      id: 1,
+      dueDate: "14-Oct-2024",
+      dueTime: "12:00 PM",
+    },
+    {
+      id: 2,
+      dueDate: "14-Oct-2024",
+      dueTime: "12:00 PM",
+    },
+  ]);
+  const [subTasks, setSubTasks] = useState([
+    {
+      id: 1,
+      tasks: [
+        {
+          subTaskId: 1,
+          title: "Push-Ups",
+          status: "Pending",
+        },
+        {
+          subTaskId: 2,
+          title: "Warm-Ups",
+          status: "Pending",
+        },
+        {
+          subTaskId: 3,
+          title: "Pull-Ups",
+          status: "Pending",
+        },
+      ],
+    },
+  ]);
+
   const renderScreen = () => {
     switch (selectedScreen) {
       case "Home":
-        return <HomeScreen />;
+        return (
+          <HomeScreen
+            tasksList={tasksList}
+            repeatTaskInfo={repeatTaskInfo}
+            subTasks={subTasks}
+          />
+        );
 
       case "Add Task":
         return <AddTask />;
@@ -122,6 +228,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#f5f5f5",
     marginTop: 35,
+  },
+
+  mainArea: {
+    width: "100%",
+    flex: 1,
   },
 
   topArea: {
